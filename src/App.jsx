@@ -1,11 +1,18 @@
 import React from "react";
-import Button from "./components/Button";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
 
 const App = () => {
+	let location = useLocation();
+	console.log(location.pathname);
 	return (
-		<div>
-			<Button variant="fill" />
-		</div>
+		<>
+			{location.pathname !== "/" && <Header />}
+			<Routes>
+				<Route path="/" element={<Home />} />
+			</Routes>
+		</>
 	);
 };
 

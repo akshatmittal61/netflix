@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Button = ({
 	className,
@@ -12,6 +13,8 @@ const Button = ({
 	iconPos = "right",
 	icon = "edit",
 	style,
+	containsLink = false,
+	link = "",
 }) => {
 	let classes = "btn";
 	if (
@@ -54,28 +57,61 @@ const Button = ({
 		classes += ` btn-have-icon btn-have-icon-${iconPos}`;
 	}
 	return (
-		<button
-			className={`${classes} ${className}`}
-			onClick={onClick}
-			type={type}
-			style={style}
-		>
-			{haveIcon ? (
-				iconPos === "left" ? (
-					<>
-						<span className="material-icons">{icon}</span>
-						{text}
-					</>
-				) : (
-					<>
-						{text}
-						<span className="material-icons">{icon}</span>
-					</>
-				)
+		<>
+			{!containsLink ? (
+				<button
+					className={`${classes} ${className}`}
+					onClick={onClick}
+					type={type}
+					style={style}
+				>
+					{haveIcon ? (
+						iconPos === "left" ? (
+							<>
+								<span className="material-icons">{icon}</span>
+								{text}
+							</>
+						) : (
+							<>
+								{text}
+								<span className="material-icons">{icon}</span>
+							</>
+						)
+					) : (
+						text
+					)}
+				</button>
 			) : (
-				text
+				<Link to={link}>
+					<button
+						className={`${classes} ${className}`}
+						onClick={onClick}
+						type={type}
+						style={style}
+					>
+						{haveIcon ? (
+							iconPos === "left" ? (
+								<>
+									<span className="material-icons">
+										{icon}
+									</span>
+									{text}
+								</>
+							) : (
+								<>
+									{text}
+									<span className="material-icons">
+										{icon}
+									</span>
+								</>
+							)
+						) : (
+							text
+						)}
+					</button>
+				</Link>
 			)}
-		</button>
+		</>
 	);
 };
 
